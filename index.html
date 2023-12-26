@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Web Component</title>
+    <script src="webcalendar.js"></script>
+    <script>
+        var greens = [3, 4];
+    </script>
+    <style>
+        * {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+        }
+        a {
+            text-decoration: none;
+            color: royalblue;
+        }
+        quiz-element {
+            display: block;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fil Mask Component</h1>
+    <p>A HTML web component for displaying sentences with a word to fill in on web pages.</p>
+    <template id="fill-mask">
+        <style>
+            button {
+                background-color: royalblue;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:disabled {
+                background-color: lightgray;
+                color: white;
+                border: none;
+                padding: 10px;
+                border-radius: 5px;
+                cursor: not-allowed;
+            }
+            input {
+                border: none;
+                border-bottom: 1px solid black;
+                padding: 5px;
+                width: 100%;
+                max-width: 300px;
+            }
+        </style>
+    </template>
+    <fill-mask text="The question pounds my head, what's a lifetime of [word]." answer="achievement"></fill-mask>
+    <script>
+        class FillMask extends HTMLElement {
+            constructor () {
+                super();
+            }
+
+            connectedCallback() {
+                this.innerHTML = `
+                    <p>${this.getAttribute("text").replace("[word]", `<input type="text" data-answer="${this.getAttribute("answer")}">`)}</p>
+                    <button id="check">Check</button>
+                    <button id="reveal">Reveal</button>
+                    ${document.getElementById("fill-mask").innerHTML}
+                `;
+                var button = this.querySelector("#check");
+
+                var answer = this.getAttribute("answer");
+                answer = answer.toLowerCase();
+
+                var reveal = this.querySelector("#reveal");
+
+                button.addEventListener("click", function () {
+                    var input = document.querySelector("input");
+
+                    if (input.value === answer) {
+                        input.style.backgroundColor = "lightgreen";
+
+                        // hide buttons
+                        button.style.display = "none";
+                        reveal.style.display = "none";
+                    } else {
+                        input.style.backgroundColor = "lightcoral";
+                    }
+                });
+
+                reveal.addEventListener("click", function () {
+                    var input = document.querySelector("input");
+
+                    input.style.backgroundColor = "white";
+                    input.value = answer;
+
+                    button.disabled = true;
+                });
+            }
+        }
+
+        customElements.define("fill-mask", FillMask);
+    </script>
+    <footer>
+        <p>Created with <span style="color: red;">&hearts;</span> by <a href="https://jamesg.blog">capjamesg</a>.</p>
+        <p>View the source code on <a href="https://github.com/capjamesg/fill-mask-web-component">GitHub</a>.</p>
+    </footer>
+</body>
+</html>
