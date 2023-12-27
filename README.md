@@ -25,13 +25,13 @@ Copy the `fillmask.js` file onto your own website.
 
 Add the following code to theweb page where you want to use the component, before you want to use the component:
 
-```
+```html
 <script src="./path/to/fillmask.js"></script>
 ```
 
 You can then add the component. To do so, add the following code:
 
-```
+```html
 <fill-mask text="The question pounds my head, what's a lifetime of [word]." answer="achievement"></fill-mask>
 ```
 
