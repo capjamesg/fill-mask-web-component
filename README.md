@@ -4,6 +4,10 @@ A HTML web component for filling missing words in sentences.
 
 This component is ideal for making interactive quizzes where the reader needs to fill in a word (i.e. fill in the missing song lyric, fill in the missing word from a quote).
 
+[Try the component](https://capjamesg.github.io/fill-mask-web-component/).
+
+## Demo
+
 Here is an example of the component in use:
 
 https://github.com/capjamesg/fill-mask-web-component/assets/37276661/216ec4ec-2701-4311-a039-72497f3d12dd
